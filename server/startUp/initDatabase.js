@@ -9,6 +9,11 @@ module.exports = async () => {
   if(professions.length !== professionMock.length) {
     await createInitialEntity(Profession, professionMock)
   }
+
+  const qualities = await Quality.find()
+  if(qualities.length !== qualitiesMock.length) {
+    await createInitialEntity(Quality, qualitiesMock)
+  }
 }
 
 async function createInitialEntity(Model, data) {
