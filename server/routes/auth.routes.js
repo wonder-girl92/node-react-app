@@ -12,7 +12,7 @@ router.post('/signUp', [
   async (req, res) => {
     try {
       const errors = validationResult(req)
-      if (errors.isEmpty()) {
+      if (!errors.isEmpty()) {
         return res.status(400).json({
           error: {
             message: 'INVALID_DATA',
@@ -33,11 +33,11 @@ router.post('/signUp', [
         })
       }
 
-      const hashedPassword = bcrypt.hash(password, 12)
+      const hashedPassword = await bcrypt.hash(password, 12)
 
-      const newUser = User.create({
-        ...req.body,
+      const newUser = await User.create({
         ...generateUserData(),
+        ...req.body,
         password: hashedPassword,
       })
       const tokens = tokenService.generate({ _id: newUser._id })
@@ -61,7 +61,8 @@ router.post('/signInWithPassword', [
           return res.status(400).json({
             error: {
               message: 'INVALID_DATA',
-              code: 400
+              code: 400,
+              errors: errors.array()
             }
           })
         }
