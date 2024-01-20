@@ -12,24 +12,24 @@ import LogOut from "./layouts/logOut";
 import AppLoader from "./components/ui/hoc/appLoader";
 
 function App() {
-    return (
-        <div>
-            <AppLoader>
-                <NavBar />
-                <Switch>
-                    <ProtectedRoute
-                        path="/users/:userId?/:edit?"
-                        component={Users}
-                    />
-                    <Route path="/login/:type?" component={Login} />
-                    <Route path="/logout" component={LogOut} />
-                    <Route path="/" exact component={Main} />
-                    <Redirect to="/" />
-                </Switch>
-            </AppLoader>
-            <ToastContainer />
-        </div>
-    );
+  return (
+    <div>
+      <AppLoader>
+        <NavBar/>
+        <Switch>
+          <ProtectedRoute
+            path="/users/:userId?/:edit?"
+            component={Users}
+          />
+          <Route path="/login/:type?" component={Login}/>
+          <Route path="/logout" component={LogOut}/>
+          <Route path="/" exact component={Main}/>
+          <Redirect to="/"/>
+        </Switch>
+      </AppLoader>
+      <ToastContainer/>
+    </div>
+  );
 }
 
 export default App;
